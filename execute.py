@@ -24,15 +24,11 @@ def execute(expr):
         elif token in '+-*/':
             stack_size -= 1
         else:
-            print(index)
             raise ValueError('Incorrect Reverse Polish Notation \n' + expr + '\n' + ' ' * (2 * index) + '^')
         if stack_size < 1 and token != expr[-1]:
-            print(token)
-            print(index)
             raise ValueError('Incorrect Reverse Polish Notation \n' + expr + '\n' + ' ' * (2 * index) + '^')
         index += 1
     if stack_size != 1:
-        print(index)
         raise ValueError('Incorrect Reverse Polish Notation \n' + expr + '\n' + ' ' * (2 * index - 1) + '^')
     
     #calculate
