@@ -13,20 +13,27 @@ def execute(expr):
     for op in OPERATORS.keys():
         expr = expr.replace(op, ' ' + op + ' ')
     expr = re.sub(' +',' ', expr)
+    expr = expr.strip(' ')
     
     #check correctness
     stack_size = 0
+    index = 0
     for token in expr.split(' '):
         if token.replace('.', '').isnumeric():
             stack_size += 1
         elif token in '+-*/':
             stack_size -= 1
         else:
-            raise ValueError('Incorrect Reverse Polish Notation')
-        if stack_size < 0:
-            raise ValueError('Incorrect Reverse Polish Notation')
-    if stack_size != 0:
-        raise ValueError('Incorrect Reverse Polish Notation')
+            print(index)
+            raise ValueError('Incorrect Reverse Polish Notation \n' + expr + '\n' + ' ' * (2 * index) + '^')
+        if stack_size < 1 and token != expr[-1]:
+            print(token)
+            print(index)
+            raise ValueError('Incorrect Reverse Polish Notation \n' + expr + '\n' + ' ' * (2 * index) + '^')
+        index += 1
+    if stack_size != 1:
+        print(index)
+        raise ValueError('Incorrect Reverse Polish Notation \n' + expr + '\n' + ' ' * (2 * index - 1) + '^')
     
     #calculate
     stack = [0]
